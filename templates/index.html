@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MatrizLab - Multiplicação de Matrizes</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- CABEÇALHO -->
+    <header>
+
+        <div class="logo">
+            Matriz<span>Lab.</span>
+        </div>
+
+        <nav>
+            <a href="#inicio">Início</a>
+            <a href="#calculadora">Calculadora</a>
+            <a href="#sobre">Sobre</a>
+        </nav>
+
+    </header>
+
+
+    <!-- APRESENTAÇÃO -->
+    <section id="inicio" class="hero">
+
+        <div class="hero-conteudo">
+
+            <span class="etiqueta">MATEMÁTICA COMPUTACIONAL</span>
+
+            <h1>
+                Multiplicação de matrizes
+                de forma simples.
+            </h1>
+
+            <p>
+                Insira suas matrizes, realize os cálculos
+                e acompanhe o resultado de maneira prática
+                e didática.
+            </p>
+
+            <a href="#calculadora" class="botao">
+                Começar cálculo
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- CALCULADORA -->
+    <main>
+
+        <section id="calculadora" class="calculadora">
+
+            <div class="titulo-secao">
+
+                <span>MÓDULO PRINCIPAL</span>
+
+                <h2>Calculadora de matrizes</h2>
+
+                <p>
+                    Preencha as duas matrizes para realizar
+                    a multiplicação.
+                </p>
+
+            </div>
+
+
+            <!-- FORMULÁRIO -->
+            <div class="card">
+
+                <form action="/multiplicar" method="POST">
+
+                    <div class="matrizes">
+
+                        <!-- MATRIZ A -->
+                        <div class="campo-matriz">
+
+                            <h3>Matriz A</h3>
+
+                            <p>
+                                Primeira matriz
+                            </p>
+
+                            <textarea
+                                name="matriz_a"
+                                id="matriz_a"
+                                placeholder="Exemplo:
+1 2
+3 4"
+                                required
+                            >1 2
+3 4</textarea>
+
+                            <small>
+                                Digite os números separados por espaço.
+                                Cada linha representa uma linha da matriz.
+                            </small>
+
+                        </div>
+
+
+                        <!-- MATRIZ B -->
+                        <div class="campo-matriz">
+
+                            <h3>Matriz B</h3>
+
+                            <p>
+                                Segunda matriz
+                            </p>
+
+                            <textarea
+                                name="matriz_b"
+                                id="matriz_b"
+                                placeholder="Exemplo:
+5 6
+7 8"
+                                required
+                            >5 6
+7 8</textarea>
+
+                            <small>
+                                Digite os números separados por espaço.
+                                Cada linha representa uma linha da matriz.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- BOTÃO -->
+                    <button type="submit" class="botao calcular">
+
+                        Multiplicar matrizes
+
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- RESULTADO -->
+            {% if resultado is defined %}
+
+            <div class="resultado">
+
+                <h2>Resultado da multiplicação</h2>
+
+                <p>
+                    Confira o resultado calculado pelo sistema:
+                </p>
+
+                <div class="matriz-resultado">
+
+                    {% for linha in resultado %}
+
+                    <div class="linha-resultado">
+
+                        {% for valor in linha %}
+
+                        <span>{{ valor }}</span>
+
+                        {% endfor %}
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            {% endif %}
+            <!-- RESOLUÇÃO PASSO A PASSO -->
+
+{% if passos is defined %}
+
+<div class="resultado">
+
+    <h2>Resolução passo a passo</h2>
+
+    <p>
+        Veja como cada elemento da matriz resultante foi calculado:
+    </p>
+
+    {% for passo in passos %}
+
+    <div class="passo-calculo">
+
+        <h3>{{ passo.posicao }}</h3>
+
+        <p>{{ passo.calculo }}</p>
+
+        <strong>
+            Resultado: {{ passo.resultado }}
+        </strong>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endif %}
+
+
+            <!-- ERROS -->
+            {% if erro is defined %}
+
+            <div class="erro">
+
+                <strong>Atenção!</strong>
+
+                <p>{{ erro }}</p>
+
+            </div>
+
+            {% endif %}
+
+
+        </section>
+
+
+        <!-- SOBRE O PROJETO -->
+        <section id="sobre" class="sobre">
+
+            <span>CONHEÇA O PROJETO</span>
+
+            <h2>O que é a multiplicação de matrizes?</h2>
+
+            <p>
+                A multiplicação de matrizes é uma operação matemática
+                que combina linhas da primeira matriz com colunas
+                da segunda matriz.
+            </p>
+
+            <p>
+                Para que a multiplicação seja possível, o número
+                de colunas da primeira matriz deve ser igual
+                ao número de linhas da segunda.
+            </p>
+
+        </section>
+
+    </main>
+
+
+  
+    <footer>
+
+        <h3>MatrizLab.</h3>
+
+        <p>
+            Aprendendo matemática através da programação.
+        </p>
+
+        <small>
+            Projeto acadêmico - Matemática Computacional Aplicada
+        </small>
+
+    </footer>
+
+
+</body>
+
+</html>
